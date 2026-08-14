@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   getProducts,
   getProduct,
@@ -12,66 +12,100 @@ function useProducts() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  function fetchProducts() {
+  const fetchProducts = useCallback(() => {
     setLoading(true);
+    setError(null);
 
-    getProducts()
+    return getProducts()
       .then((data) => {
         setProducts(data);
-        setError(null);
+        return data;
       })
       .catch((error) => {
         setError(error.message);
+        return null;
       })
       .finally(() => {
         setLoading(false);
       });
-  }
-
-  useEffect(() => {
-    fetchProducts();
   }, []);
 
-  function addProduct(product) {
+  const fetchProduct = useCallback((id) => {
+    return getProduct(id)
+      .catch((error) => {
+        setError(error.message);
+        return null;
+      });
+  }, []);
+
+  const addProduct = useCallback((product) => {
+    setError(null);
+
     return createProduct(product)
       .then((newProduct) => {
-        setProducts((prevProducts) => [
-          ...prevProducts,
+        setProducts((currentProducts) => [
+          ...currentProducts,
           newProduct
         ]);
 
         return newProduct;
+      })
+      .catch((error) => {
+        setError(error.message);
+        return null;
       });
-  }
+  }, []);
 
-  function editProduct(id, updatedProduct) {
+  const editProduct = useCallback((id, updatedProduct) => {
+    setError(null);
+
     return updateProduct(id, updatedProduct)
-      .then((updated) => {
-        setProducts((prevProducts) =>
-          prevProducts.map((product) =>
-            product.id === id ? updated : product
+      .then((updatedProductFromServer) => {
+        setProducts((currentProducts) =>
+          currentProducts.map((product) =>
+            product.id === id
+              ? updatedProductFromServer
+              : product
           )
         );
 
-        return updated;
+        return updatedProductFromServer;
+      })
+      .catch((error) => {
+        setError(error.message);
+        return null;
       });
-  }
+  }, []);
 
-  function removeProduct(id) {
+  const removeProduct = useCallback((id) => {
+    setError(null);
+
     return deleteProduct(id)
       .then(() => {
-        setProducts((prevProducts) =>
-          prevProducts.filter((product) => product.id !== id)
+        setProducts((currentProducts) =>
+          currentProducts.filter(
+            (product) => product.id !== id
+          )
         );
+
+        return true;
+      })
+      .catch((error) => {
+        setError(error.message);
+        return false;
       });
-  }
+  }, []);
+
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
 
   return {
     products,
     loading,
     error,
     fetchProducts,
-    getProduct,
+    fetchProduct,
     addProduct,
     editProduct,
     removeProduct

@@ -1,25 +1,19 @@
 const API_URL = "http://localhost:3001/products";
 
-export function getProducts() {
-  return fetch(API_URL)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Failed to fetch products");
-      }
+function handleResponse(response) {
+  if (!response.ok) {
+    throw new Error(`Request failed: ${response.status}`);
+  }
 
-      return response.json();
-    });
+  return response.json();
+}
+
+export function getProducts() {
+  return fetch(API_URL).then(handleResponse);
 }
 
 export function getProduct(id) {
-  return fetch(`${API_URL}/${id}`)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Failed to fetch product");
-      }
-
-      return response.json();
-    });
+  return fetch(`${API_URL}/${id}`).then(handleResponse);
 }
 
 export function createProduct(product) {
@@ -29,14 +23,7 @@ export function createProduct(product) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify(product)
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Failed to create product");
-      }
-
-      return response.json();
-    });
+  }).then(handleResponse);
 }
 
 export function updateProduct(id, product) {
@@ -46,25 +33,17 @@ export function updateProduct(id, product) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify(product)
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Failed to update product");
-      }
-
-      return response.json();
-    });
+  }).then(handleResponse);
 }
 
 export function deleteProduct(id) {
   return fetch(`${API_URL}/${id}`, {
     method: "DELETE"
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Failed to delete product");
-      }
+  }).then((response) => {
+    if (!response.ok) {
+      throw new Error(`Request failed: ${response.status}`);
+    }
 
-      return response.json();
-    });
+    return true;
+  });
 }

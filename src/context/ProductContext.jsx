@@ -1,7 +1,7 @@
 import { createContext } from "react";
 import useProducts from "../hooks/useProducts";
 
-export const ProductContext = createContext();
+export const ProductContext = createContext(null);
 
 function ProductProvider({ children }) {
   const productData = useProducts();
