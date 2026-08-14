@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import StatsCard from "../components/StatsCard";
 import useProductContext from "../hooks/useProductContext";
 
