@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import StatsCard from "../components/StatsCard";
 import useProductContext from "../hooks/useProductContext";
 
 function AdminDashboard() {
+  const navigate = useNavigate();
   const {
     products,
     loading,
@@ -52,9 +53,10 @@ function AdminDashboard() {
         <div>
           <h2>Product Overview</h2>
 
-          <Link to="/admin/products">
+          <button onClick={()=>navigate("/admin/products")}>
             Manage Products
-          </Link>
+          </button>
+            
         </div>
 
         <table>
