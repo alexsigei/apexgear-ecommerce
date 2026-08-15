@@ -4,7 +4,7 @@ import {
   screen,
   waitFor
 } from "@testing-library/react";
-import { MemoryRouter } from "react-router";
+import { MemoryRouter } from "react-router-dom";
 import AdminDashboard from "../pages/AdminDashboard";
 import ProductProvider from "../context/ProductContext";
 

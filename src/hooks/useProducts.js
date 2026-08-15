@@ -4,7 +4,7 @@ import {
   getProduct,
   createProduct,
   updateProduct,
-  deleteProduct
+  deleteProduct,
 } from "../services/productService";
 
 function useProducts() {
@@ -12,92 +12,103 @@ function useProducts() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchProducts = useCallback(() => {
+  const fetchProducts = useCallback(async () => {
     setLoading(true);
     setError(null);
 
-    return getProducts()
-      .then((data) => {
-        setProducts(data);
-        return data;
-      })
-      .catch((error) => {
-        setError(error.message);
-        return null;
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    try {
+      const data = await getProducts();
+
+      setProducts(data);
+
+      return data;
+    } catch (error) {
+      setError(error.message);
+
+      return null;
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  const fetchProduct = useCallback((id) => {
-    return getProduct(id)
-      .catch((error) => {
-        setError(error.message);
-        return null;
-      });
+  const fetchProduct = useCallback(async (id) => {
+    try {
+      const product = await getProduct(id);
+
+      return product;
+    } catch (error) {
+      setError(error.message);
+
+      return null;
+    }
   }, []);
 
-  const addProduct = useCallback((product) => {
+  const addProduct = useCallback(async (product) => {
     setError(null);
 
-    return createProduct(product)
-      .then((newProduct) => {
-        setProducts((currentProducts) => [
-          ...currentProducts,
-          newProduct
-        ]);
+    try {
+      const newProduct = await createProduct(product);
 
-        return newProduct;
-      })
-      .catch((error) => {
-        setError(error.message);
-        return null;
-      });
+      setProducts((currentProducts) => [
+        ...currentProducts,
+        newProduct,
+      ]);
+
+      return newProduct;
+    } catch (error) {
+      setError(error.message);
+
+      return null;
+    }
   }, []);
 
-  const editProduct = useCallback((id, updatedProduct) => {
+  const editProduct = useCallback(async (id, updatedProduct) => {
     setError(null);
 
-    return updateProduct(id, updatedProduct)
-      .then((updatedProductFromServer) => {
-        setProducts((currentProducts) =>
-          currentProducts.map((product) =>
-            product.id === id
-              ? updatedProductFromServer
-              : product
-          )
-        );
+    try {
+      const updatedProductFromServer = await updateProduct(
+        id,
+        updatedProduct
+      );
 
-        return updatedProductFromServer;
-      })
-      .catch((error) => {
-        setError(error.message);
-        return null;
-      });
+      setProducts((currentProducts) =>
+        currentProducts.map((product) =>
+          product.id === id
+            ? updatedProductFromServer
+            : product
+        )
+      );
+
+      return updatedProductFromServer;
+    } catch (error) {
+      setError(error.message);
+
+      return null;
+    }
   }, []);
 
-  const removeProduct = useCallback((id) => {
+  const removeProduct = useCallback(async (id) => {
     setError(null);
 
-    return deleteProduct(id)
-      .then(() => {
-        setProducts((currentProducts) =>
-          currentProducts.filter(
-            (product) => product.id !== id
-          )
-        );
+    try {
+      await deleteProduct(id);
 
-        return true;
-      })
-      .catch((error) => {
-        setError(error.message);
-        return false;
-      });
+      setProducts((currentProducts) =>
+        currentProducts.filter(
+          (product) => product.id !== id
+        )
+      );
+
+      return true;
+    } catch (error) {
+      setError(error.message);
+
+      return false;
+    }
   }, []);
 
   useEffect(() => {
-    fetchProducts();
+    void fetchProducts();
   }, [fetchProducts]);
 
   return {
@@ -108,7 +119,7 @@ function useProducts() {
     fetchProduct,
     addProduct,
     editProduct,
-    removeProduct
+    removeProduct,
   };
 }
 

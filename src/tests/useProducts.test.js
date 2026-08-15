@@ -231,4 +231,54 @@ describe("useProducts", () => {
 
     expect(result.current.products).toEqual([product]);
   });
+
+  it("fetches a single product", async () => {
+    const product = {
+        id: "1",
+        name: "MacBook Air",
+    };
+
+    getProducts.mockResolvedValue([]);
+    getProduct.mockResolvedValue(product);
+
+    const { result } = renderHook(() => useProducts());
+
+    await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+    });
+
+    let fetchedProduct;
+
+    await act(async () => {
+        fetchedProduct = await result.current.fetchProduct("1");
+    });
+
+    expect(getProduct).toHaveBeenCalledWith("1");
+    expect(fetchedProduct).toEqual(product);
+  });
+
+  it("handles an error when fetching a single product", async () => {
+    getProducts.mockResolvedValue([]);
+
+    getProduct.mockRejectedValue(
+        new Error("Failed to fetch product")
+    );
+
+    const { result } = renderHook(() => useProducts());
+
+    await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+    });
+
+    let fetchedProduct;
+
+    await act(async () => {
+        fetchedProduct = await result.current.fetchProduct("1");
+    });
+
+    expect(fetchedProduct).toBe(null);
+    expect(result.current.error).toBe(
+        "Failed to fetch product"
+    );
+  });
 });
