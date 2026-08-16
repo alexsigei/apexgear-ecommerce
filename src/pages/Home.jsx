@@ -58,9 +58,7 @@ function Home() {
   return (
     <div className="home-page">
 
-      {/* =================================================
-          HERO + FEATURED PRODUCTS
-      ================================================= */}
+      {/* HERO + FEATURED PRODUCTS */}
 
       <section className="home-hero">
 
@@ -84,16 +82,14 @@ function Home() {
             to="/shop"
             className="hero-button"
           >
-            Explore the collection
+            Explore our products
             <span>→</span>
           </Link>
 
         </div>
 
 
-        {/* =============================================
-            HERO PRODUCTS
-        ============================================== */}
+        {/* HERO PRODUCTS */}
 
         {!loading && !error && featuredProducts.length > 0 && (
           <div className="hero-products">
@@ -138,9 +134,7 @@ function Home() {
         )}
 
 
-        {/* =============================================
-            CATEGORY WHEEL
-        ============================================== */}
+        {/* CATEGORY WHEEL */}
 
         <div className="hero-categories">
 
@@ -234,9 +228,7 @@ function Home() {
       </section>
 
 
-      {/* =================================================
-          PRODUCT COLLECTION
-      ================================================= */}
+      {/* PRODUCT COLLECTION */}
 
       <section className="featured-section">
 
