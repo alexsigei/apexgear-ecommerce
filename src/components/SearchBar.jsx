@@ -4,10 +4,11 @@ function SearchBar({ search, onSearch }) {
   }
 
   return (
-    <div>
-      <label htmlFor="search">
-        Search products:
-      </label>
+    <div className="shop-search">
+
+      <span className="shop-search-icon">
+        ⌕
+      </span>
 
       <input
         id="search"
@@ -15,7 +16,20 @@ function SearchBar({ search, onSearch }) {
         placeholder="Search products..."
         value={search}
         onChange={handleChange}
+        aria-label="Search products"
       />
+
+      {search && (
+        <button
+          type="button"
+          className="shop-search-clear"
+          onClick={() => onSearch("")}
+          aria-label="Clear search"
+        >
+          ×
+        </button>
+      )}
+
     </div>
   );
 }

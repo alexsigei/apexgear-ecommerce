@@ -1,26 +1,66 @@
 import { Link } from "react-router-dom";
 
 function ProductCard({ product }) {
+  const price = Number(product.price) || 0;
+
   return (
     <article className="product-card">
-      <img
-        src={product.image}
-        alt={product.name}
-      />
+
+      <Link
+        to={`/shop/${product.id}`}
+        className="product-card-image"
+      >
+        <img
+          src={product.image}
+          alt={product.name}
+        />
+
+        <span className="product-card-category">
+          {product.category}
+        </span>
+      </Link>
+
 
       <div className="product-card-content">
-        <p>{product.category}</p>
 
-        <h2>{product.name}</h2>
+        <div className="product-card-heading">
 
-        <p>{product.description}</p>
+          <h2>
+            {product.name}
+          </h2>
 
-        <p>KSh {product.price.toLocaleString()}</p>
+          <span className="product-stock">
+            {Number(product.stock) > 0
+              ? "In stock"
+              : "Out of stock"}
+          </span>
 
-        <Link to={`/shop/${product.id}`}>
-          View Product
-        </Link>
+        </div>
+
+
+        <p className="product-card-description">
+          {product.description}
+        </p>
+
+
+        <div className="product-card-bottom">
+
+          <strong>
+            KSh {price.toLocaleString("en-KE")}
+          </strong>
+
+          <Link
+            to={`/shop/${product.id}`}
+            className="product-card-link"
+          >
+            View
+            <span>→</span>
+          </Link>
+
+        </div>
+
       </div>
+
     </article>
   );
 }
