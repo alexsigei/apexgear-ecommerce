@@ -4,6 +4,7 @@ import useProductContext from "../hooks/useProductContext";
 import "../styles/product-form.css";
 
 function EditProduct() {
+
   const { pid } = useParams();
   const navigate = useNavigate();
 
@@ -14,6 +15,8 @@ function EditProduct() {
     error,
   } = useProductContext();
 
+  console.log(fetchProduct ,editProduct)
+
   const [formData, setFormData] = useState({
     name: "",
     category: "",
@@ -22,6 +25,8 @@ function EditProduct() {
     image: "",
     description: "",
   });
+
+  console.log(formData)
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,6 +41,7 @@ function EditProduct() {
     e.preventDefault();
 
     const resp = await editProduct(pid, formData);
+    console.log(resp)
 
     if (resp) {
       navigate("/admin/products");
@@ -45,6 +51,7 @@ function EditProduct() {
   useEffect(() => {
     const fetchEditProduct = async () => {
       const resp = await fetchProduct(pid);
+      console.log(resp)
 
       if (resp) {
         setFormData({
