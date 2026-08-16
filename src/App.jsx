@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+
 import Home from "./pages/Home";
 import Shop from "./pages/Shop";
 import ProductDetails from "./pages/ProductDetails";
@@ -6,12 +7,11 @@ import AdminDashboard from "./pages/AdminDashboard";
 import AdminProducts from "./pages/AdminProducts";
 import AddProduct from "./pages/AddProduct";
 import EditProduct from "./pages/EditProduct";
+
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
-
 function App() {
-
   return (
     <div className="app">
       <Navbar />
@@ -20,10 +20,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
 
-          <Route
-            path="/shop"
-            element={<Shop />}
-          />
+          <Route path="/shop" element={<Shop />} />
 
           <Route
             path="/shop/:id"
@@ -35,15 +32,26 @@ function App() {
             element={<AdminDashboard />}
           />
 
-          <Route path="/admin/products" element={<AdminProducts />}/>
-          <Route path="/admin/products/add" element={<AddProduct />}/>
-          <Route path="/admin/products/edit/:pid" element={<EditProduct />}/>
+          <Route
+            path="/admin/products"
+            element={<AdminProducts />}
+          />
+
+          <Route
+            path="/admin/products/add"
+            element={<AddProduct />}
+          />
+
+          <Route
+            path="/admin/products/edit/:pid"
+            element={<EditProduct />}
+          />
         </Routes>
       </main>
 
       <Footer />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

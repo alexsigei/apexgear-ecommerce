@@ -1,0 +1,604 @@
+/* =====================================================
+   ADMIN PRODUCTS
+===================================================== */
+
+.admin-products-page {
+  width: min(var(--container-width), 92%);
+
+  margin: 0 auto;
+
+  padding-top: 5rem;
+  padding-bottom: 7rem;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.admin-products-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 3rem;
+
+  margin-bottom: 2.5rem;
+}
+
+
+.admin-products-eyebrow {
+  margin-bottom: 0.7rem;
+
+  color: var(--sand);
+
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+
+.admin-products-header h1 {
+  margin-bottom: 0.7rem;
+
+  color: var(--text-primary);
+
+  font-size: clamp(3rem, 5vw, 4.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+}
+
+
+.admin-products-description {
+  max-width: 480px;
+
+  color: var(--text-muted);
+
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+
+
+/* =====================================================
+   ADD PRODUCT BUTTON
+===================================================== */
+
+.admin-add-button {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 0.65rem;
+
+  padding: 0.85rem 1.15rem;
+
+  border: 1px solid rgba(255, 255, 255, 0.17);
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.09);
+
+  color: var(--text-primary);
+
+  font-size: 0.75rem;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  transition:
+    transform 180ms ease,
+    background 180ms ease;
+}
+
+
+.admin-add-button span {
+  color: var(--sand);
+
+  font-size: 1rem;
+  line-height: 1;
+}
+
+
+.admin-add-button:hover {
+  transform: translateY(-2px);
+
+  background: rgba(255, 255, 255, 0.14);
+}
+
+
+/* =====================================================
+   SUMMARY
+===================================================== */
+
+.admin-products-summary {
+  display: flex;
+  align-items: center;
+
+  gap: 1.2rem;
+
+  margin-bottom: 1.5rem;
+
+  padding: 1rem 1.25rem;
+
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+
+  background: rgba(255, 255, 255, 0.035);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+
+.admin-products-summary > div:first-child {
+  display: flex;
+  align-items: center;
+
+  gap: 0.7rem;
+}
+
+
+.summary-label {
+  color: var(--text-muted);
+
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+
+.admin-products-summary strong {
+  color: var(--text-primary);
+
+  font-size: 1rem;
+}
+
+
+.summary-divider {
+  width: 1px;
+  height: 18px;
+
+  background: rgba(255, 255, 255, 0.1);
+}
+
+
+.admin-products-summary p {
+  color: rgba(255, 255, 255, 0.35);
+
+  font-size: 0.68rem;
+}
+
+
+/* =====================================================
+   TABLE CARD
+===================================================== */
+
+.products-table-card {
+  overflow: hidden;
+
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+
+  background: rgba(255, 255, 255, 0.035);
+
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.13),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+}
+
+
+/* =====================================================
+   TABLE HEADER
+===================================================== */
+
+.products-table-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 1.5rem 1.5rem 1.25rem;
+}
+
+
+.table-eyebrow {
+  margin-bottom: 0.4rem;
+
+  color: var(--sand);
+
+  font-size: 0.57rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+
+.products-table-header h2 {
+  color: var(--text-primary);
+
+  font-size: 1.3rem;
+  font-weight: 600;
+
+  letter-spacing: -0.03em;
+}
+
+
+.product-count {
+  padding: 0.35rem 0.6rem;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.04);
+
+  color: var(--text-muted);
+
+  font-size: 0.6rem;
+}
+
+
+/* =====================================================
+   TABLE
+===================================================== */
+
+.products-table-wrapper {
+  width: 100%;
+
+  overflow-x: auto;
+}
+
+
+.products-table {
+  width: 100%;
+
+  min-width: 1000px;
+
+  border-collapse: collapse;
+}
+
+
+.products-table th {
+  padding: 0.85rem 1.4rem;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
+  color: rgba(255, 255, 255, 0.32);
+
+  font-size: 0.57rem;
+  font-weight: 600;
+
+  letter-spacing: 0.08em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+
+.products-table td {
+  padding: 1rem 1.4rem;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.045);
+
+  color: var(--text-secondary);
+
+  font-size: 0.7rem;
+
+  vertical-align: middle;
+}
+
+
+.products-table tbody tr {
+  transition: background 180ms ease;
+}
+
+
+.products-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.035);
+}
+
+
+.products-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+
+/* =====================================================
+   PRODUCT
+===================================================== */
+
+.managed-product {
+  display: flex;
+  align-items: center;
+
+  gap: 0.8rem;
+
+  min-width: 190px;
+}
+
+
+.managed-product-image {
+  width: 44px;
+  height: 44px;
+
+  flex-shrink: 0;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+
+  background: rgba(255, 255, 255, 0.05);
+}
+
+
+.managed-product-image img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+
+.managed-product-name {
+  display: flex;
+  flex-direction: column;
+
+  gap: 0.2rem;
+}
+
+
+.managed-product-name strong {
+  color: var(--text-primary);
+
+  font-size: 0.72rem;
+  font-weight: 550;
+}
+
+
+.managed-product-name span {
+  color: rgba(255, 255, 255, 0.25);
+
+  font-size: 0.58rem;
+}
+
+
+/* =====================================================
+   CATEGORY
+===================================================== */
+
+.managed-category {
+  color: var(--text-muted);
+
+  white-space: nowrap;
+}
+
+
+/* =====================================================
+   PRICE
+===================================================== */
+
+.managed-price {
+  color: var(--text-primary);
+
+  font-weight: 550;
+
+  white-space: nowrap;
+}
+
+
+/* =====================================================
+   STOCK
+===================================================== */
+
+.managed-stock {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 0.45rem;
+
+  min-width: 70px;
+
+  padding: 0.35rem 0.55rem;
+
+  border-radius: 999px;
+
+  font-size: 0.6rem;
+}
+
+
+.managed-stock-dot {
+  width: 5px;
+  height: 5px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+}
+
+
+.managed-stock-available {
+  background: rgba(100, 200, 170, 0.08);
+
+  color: rgba(170, 220, 200, 0.85);
+}
+
+
+.managed-stock-available .managed-stock-dot {
+  background: #78c9a8;
+
+  box-shadow:
+    0 0 8px rgba(120, 201, 168, 0.4);
+}
+
+
+.managed-stock-empty {
+  background: rgba(216, 195, 159, 0.08);
+
+  color: var(--sand);
+}
+
+
+.managed-stock-empty .managed-stock-dot {
+  background: var(--sand);
+}
+
+
+/* =====================================================
+   DESCRIPTION
+===================================================== */
+
+.managed-description {
+  width: 190px;
+
+  overflow: hidden;
+
+  color: var(--text-muted);
+
+  font-size: 0.65rem;
+  line-height: 1.45;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+
+/* =====================================================
+   ACTIONS
+===================================================== */
+
+.product-actions {
+  display: flex;
+  align-items: center;
+
+  gap: 0.45rem;
+}
+
+
+.product-actions button {
+  padding: 0.45rem 0.65rem;
+
+  border-radius: 7px;
+
+  font-size: 0.62rem;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+
+.edit-product-button {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  background: rgba(255, 255, 255, 0.055);
+
+  color: var(--text-secondary);
+}
+
+
+.edit-product-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+
+  color: var(--text-primary);
+
+  transform: translateY(-1px);
+}
+
+
+.delete-product-button {
+  border: 1px solid rgba(220, 120, 120, 0.12);
+
+  background: rgba(220, 120, 120, 0.055);
+
+  color: rgba(230, 165, 165, 0.8);
+}
+
+
+.delete-product-button:hover {
+  background: rgba(220, 120, 120, 0.1);
+
+  color: #e8aaaa;
+
+  transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   STATES
+===================================================== */
+
+.admin-products-state {
+  min-height: 60vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--text-muted);
+
+  font-size: 0.85rem;
+}
+
+
+.admin-products-error {
+  color: #e5a7a7;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 800px) {
+
+  .admin-products-header {
+    align-items: flex-start;
+    flex-direction: column;
+
+    gap: 1.5rem;
+  }
+
+  .admin-add-button {
+    align-self: flex-start;
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  .admin-products-page {
+    padding-top: 4rem;
+  }
+
+  .admin-products-header h1 {
+    font-size: 3rem;
+  }
+
+  .admin-products-summary {
+    align-items: flex-start;
+    flex-direction: column;
+
+    gap: 0.6rem;
+  }
+
+  .summary-divider {
+    width: 100%;
+    height: 1px;
+  }
+
+  .products-table-header {
+    align-items: flex-start;
+    flex-direction: column;
+
+    gap: 0.8rem;
+  }
+
+}

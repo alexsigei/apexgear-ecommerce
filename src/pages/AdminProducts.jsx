@@ -1,88 +1,285 @@
 import { useContext } from "react";
 import { ProductContext } from "../context/ProductContext";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import "../styles/admin-products.css";
 
 function AdminProducts() {
-  const { products, removeProduct, loading, error } = useContext(ProductContext);
+  const {
+    products,
+    removeProduct,
+    loading,
+    error,
+  } = useContext(ProductContext);
+
   const navigate = useNavigate();
 
   if (loading) {
-    return <h1>Loading products...</h1>;
+    return (
+      <main className="admin-products-page">
+        <div className="admin-products-state">
+          Loading products...
+        </div>
+      </main>
+    );
   }
 
   if (error) {
-    return <h1>{error}</h1>;
+    return (
+      <main className="admin-products-page">
+        <div className="admin-products-state admin-products-error">
+          {error}
+        </div>
+      </main>
+    );
   }
 
-  const handleDelete =  async (id) => {
-    const confirmed = window.confirm(`Are you sure you want to delete?`);
+  const handleDelete = async (id) => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this product?"
+    );
 
-    if(confirmed){
-      const resp = await removeProduct(id);
-      console.log(resp);
-    }else{
-      console.log('Delete cancelled');
+    if (!confirmed) {
+      return;
     }
-  }
+
+    await removeProduct(id);
+  };
 
   return (
-    <div>
-      <div>
-        <h1>Manage Admin Products</h1>
+    <main className="admin-products-page">
 
-      </div>
-      
-      <div>
-        <p>Total products: {products.length}</p>
-        <button onClick={()=>navigate("/admin/products/add")}>Add New Product</button>
-      </div>
-      
-      <div>
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Product Image</th>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Category</th>
-              <th>Stock</th>
-              <th>Description</th>
-              <th>Actions</th>
-            </tr> 
-          </thead>
-          <tbody>
-            {products.map((product, index) => (
-              <tr key={`${product.id} + {index}`}>
-                <td>{product.id}</td>
-                <td>
-                  <img
-                    style={{height: '40px', width: '40px', objectFit: 'cover'}}
-                    src={product?.image}
-                  />
-                </td>
-                <td>{product.name}</td>
-                <td>{product.price}</td>
-                <td>{product?.category}</td>
-                <td>{product?.stock}</td>
-                <td>{product?.desc}</td>
-                <td>
-                  <button onClick={()=>navigate(`/admin/products/edit/${product.id}`)}>Edit</button>
-                  <button onClick={()=>handleDelete(product.id)}>Delete</button>
-                </td>
+      {/* HEADER */}
+
+      <section className="admin-products-header">
+
+        <div>
+          <p className="admin-products-eyebrow">
+            APEXGEAR · INVENTORY
+          </p>
+
+          <h1>
+            Products
+          </h1>
+
+          <p className="admin-products-description">
+            Add, edit, and manage everything in your
+            product collection.
+          </p>
+        </div>
+
+
+        <button
+          className="admin-add-button"
+          onClick={() =>
+            navigate("/admin/products/add")
+          }
+        >
+          <span>+</span>
+          Add product
+        </button>
+
+      </section>
+
+
+      {/* SUMMARY */}
+
+      <section className="admin-products-summary">
+
+        <div>
+          <span className="summary-label">
+            TOTAL PRODUCTS
+          </span>
+
+          <strong>
+            {products.length}
+          </strong>
+        </div>
+
+        <div className="summary-divider" />
+
+        <p>
+          Your current ApexGear inventory
+        </p>
+
+      </section>
+
+
+      {/* PRODUCT TABLE */}
+
+      <section className="products-table-card">
+
+        <div className="products-table-header">
+
+          <div>
+            <p className="table-eyebrow">
+              INVENTORY
+            </p>
+
+            <h2>
+              All products
+            </h2>
+          </div>
+
+          <span className="product-count">
+            {products.length} items
+          </span>
+
+        </div>
+
+
+        <div className="products-table-wrapper">
+
+          <table className="products-table">
+
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Description</th>
+                <th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      {/*<ul>
-        {products.map((product) => (
-          <li key={product.id}>
-            {product.name} — KSh {product.price}
-          </li>
-        ))}
-      </ul>*/}
-    </div>
+            </thead>
+
+
+            <tbody>
+
+              {products.map((product) => {
+
+                const stock = Number(product.stock);
+                const price = Number(product.price);
+
+                return (
+                  <tr key={product.id}>
+
+                    {/* Product */}
+
+                    <td>
+                      <div className="managed-product">
+
+                        <div className="managed-product-image">
+
+                          <img
+                            src={product.image}
+                            alt={product.name}
+                          />
+
+                        </div>
+
+                        <div className="managed-product-name">
+
+                          <strong>
+                            {product.name}
+                          </strong>
+
+                          <span>
+                            #{product.id}
+                          </span>
+
+                        </div>
+
+                      </div>
+                    </td>
+
+
+                    {/* Category */}
+
+                    <td>
+                      <span className="managed-category">
+                        {product.category}
+                      </span>
+                    </td>
+
+
+                    {/* Price */}
+
+                    <td>
+                      <span className="managed-price">
+                        KSh{" "}
+                        {price.toLocaleString("en-KE")}
+                      </span>
+                    </td>
+
+
+                    {/* Stock */}
+
+                    <td>
+
+                      <span
+                        className={`managed-stock ${
+                          stock > 0
+                            ? "managed-stock-available"
+                            : "managed-stock-empty"
+                        }`}
+                      >
+
+                        <span className="managed-stock-dot" />
+
+                        {stock > 0
+                          ? stock
+                          : "Out"}
+
+                      </span>
+
+                    </td>
+
+
+                    {/* Description */}
+
+                    <td>
+                      <p className="managed-description">
+                        {product.description ||
+                          "No description available."}
+                      </p>
+                    </td>
+
+
+                    {/* Actions */}
+
+                    <td>
+
+                      <div className="product-actions">
+
+                        <button
+                          type="button"
+                          className="edit-product-button"
+                          onClick={() =>
+                            navigate(
+                              `/admin/products/edit/${product.id}`
+                            )
+                          }
+                        >
+                          Edit
+                        </button>
+
+                        <button
+                          type="button"
+                          className="delete-product-button"
+                          onClick={() =>
+                            handleDelete(product.id)
+                          }
+                        >
+                          Delete
+                        </button>
+
+                      </div>
+
+                    </td>
+
+                  </tr>
+                );
+              })}
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </section>
+
+    </main>
   );
 }
 
