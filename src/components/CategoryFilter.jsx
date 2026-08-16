@@ -1,5 +1,5 @@
-function CategoryFilter({ category, setCategory, onCategoryChange }) {
-  const categories = [
+function CategoryFilter({ category, setCategory, onCategoryChange, categories }) {
+  const defaultCategories = [
     "All",
     "Laptops",
     "Phones",
@@ -8,24 +8,27 @@ function CategoryFilter({ category, setCategory, onCategoryChange }) {
     "Accessories",
   ];
 
+  const availableCategories =
+    categories && categories.length > 0
+      ? ["All", ...categories.filter((item) => item !== "All")]
+      : defaultCategories;
+
   function handleChange(event) {
     const selectedCategory = event.target.value;
 
-    
     if (setCategory) {
       setCategory(selectedCategory);
     }
 
-    
     if (onCategoryChange) {
       onCategoryChange(selectedCategory);
     }
   }
 
   return (
-    <div>
+    <div className="shop-filter-field">
       <label htmlFor="category">
-        Filter by category
+        Category
       </label>
 
       <select
@@ -33,7 +36,7 @@ function CategoryFilter({ category, setCategory, onCategoryChange }) {
         value={category || "All"}
         onChange={handleChange}
       >
-        {categories.map((categoryName) => (
+        {availableCategories.map((categoryName) => (
           <option key={categoryName} value={categoryName}>
             {categoryName}
           </option>

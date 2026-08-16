@@ -6,15 +6,27 @@ import CategoryFilter from "../components/CategoryFilter";
 import useProductContext from "../hooks/useProductContext";
 
 function Shop() {
-  const { products, loading, error } = useProductContext();
+  const {
+    products,
+    loading,
+    error,
+  } = useProductContext();
 
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
 
+  const categories = [
+    ...new Set(
+      products.map((product) => product.category)
+    ),
+  ];
+
   const filteredProducts = products.filter((product) => {
-    const matchesSearch = product.name
-      .toLowerCase()
-      .includes(search.toLowerCase());
+    const productName = product.name?.toLowerCase() || "";
+    const searchValue = search.toLowerCase();
+
+    const matchesSearch =
+      productName.includes(searchValue);
 
     const matchesCategory =
       category === "All" ||
@@ -24,36 +36,90 @@ function Shop() {
   });
 
   if (loading) {
-    return <p>Loading products...</p>;
+    return (
+      <main className="shop-page-state">
+        <div className="loading-orb" />
+        <p>Loading ApexGear...</p>
+      </main>
+    );
   }
 
   if (error) {
-    return <p>Error: {error}</p>;
+    return (
+      <main className="shop-page-state">
+        <h2>Something went wrong</h2>
+        <p>{error}</p>
+      </main>
+    );
   }
 
   return (
-    <main>
-      <h1>Shop ApexGear</h1>
+    <main className="shop-page">
 
-      <p>
-        {filteredProducts.length} products available
-      </p>
+      {/* SHOP HEADER */}
 
-      <SearchBar
-        search={search}
-        onSearch={setSearch}
+      <section className="shop-header">
+
+        <div>
+
+          <p className="shop-eyebrow">
+            APEXGEAR · COLLECTION
+          </p>
+
+          <h1>
+            Find your
+            <span>next upgrade.</span>
+          </h1>
+
+          <p className="shop-intro">
+            Explore our collection of laptops, phones,
+            gaming gear, audio equipment and more.
+          </p>
+
+        </div>
+
+        <div className="shop-count">
+
+          <strong>
+            {filteredProducts.length}
+          </strong>
+
+          <span>
+            {filteredProducts.length === 1
+              ? "product"
+              : "products"}
+          </span>
+
+        </div>
+
+      </section>
+
+
+      {/* FILTER BAR */}
+
+      <section className="shop-controls">
+
+        <SearchBar
+          search={search}
+          onSearch={setSearch}
+        />
+
+        <CategoryFilter
+          category={category}
+          setCategory={setCategory}
+          onCategoryChange={setCategory}
+          categories={categories}
+        />
+
+      </section>
+
+
+      {/* PRODUCT GRID */}
+
+      <ProductList
+        products={filteredProducts}
       />
 
-      <CategoryFilter
-  categories={[
-    ...new Set(
-      products.map((product) => product.category)
-    ),
-  ]}
-  onCategoryChange={setCategory}
-/>
-
-      <ProductList products={filteredProducts} />
     </main>
   );
 }
