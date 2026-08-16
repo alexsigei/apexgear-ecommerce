@@ -16,7 +16,7 @@ function CategoryFilter({ category, setCategory, onCategoryChange }) {
       setCategory(selectedCategory);
     }
 
-    // Used by the CategoryFilter test
+    // Used by ProductDetails
     if (onCategoryChange) {
       onCategoryChange(selectedCategory);
     }
