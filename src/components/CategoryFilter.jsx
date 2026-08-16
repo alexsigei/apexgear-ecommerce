@@ -11,12 +11,12 @@ function CategoryFilter({ category, setCategory, onCategoryChange }) {
   function handleChange(event) {
     const selectedCategory = event.target.value;
 
-    // Used by Shop
+    
     if (setCategory) {
       setCategory(selectedCategory);
     }
 
-    // Used by ProductDetails
+    
     if (onCategoryChange) {
       onCategoryChange(selectedCategory);
     }
