@@ -58,7 +58,7 @@ describe("AdminDashboard", () => {
 
     await waitFor(() => {
       expect(
-        screen.getByText("ApexGear Admin Dashboard")
+        screen.getByRole("heading", { name: "Dashboard" })
       ).toBeInTheDocument();
     });
 
@@ -67,11 +67,11 @@ describe("AdminDashboard", () => {
     ).toBeInTheDocument();
 
     expect(
-      screen.getByText("3")
+      screen.getByText("In Stock")
     ).toBeInTheDocument();
 
     expect(
-      screen.getByText("2")
+      screen.getByText("Out of Stock")
     ).toBeInTheDocument();
 
     expect(

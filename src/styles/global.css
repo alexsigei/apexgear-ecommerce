@@ -1,44 +1,19 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: Arial, sans-serif;
-  background: #f7f7f7;
-  color: #171717;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-button,
-input,
-select,
-textarea {
-  font: inherit;
-}
-
-button,
-.button {
-  cursor: pointer;
-}
-
 .app {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  background:
+    radial-gradient(
+      circle at 50% -20%,
+      rgba(44, 157, 173, 0.16),
+      transparent 38%
+    ),
+    linear-gradient(
+      180deg,
+      var(--ocean-800) 0%,
+      var(--ocean-900) 45%,
+      var(--ocean-950) 100%
+    );
 }
 
 .main-content {
-  flex: 1;
-}
-
-main {
-  width: min(1200px, 92%);
-  margin: 0 auto;
-  padding: 3rem 0;
+  min-height: 100vh;
 }
