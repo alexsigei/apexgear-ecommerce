@@ -1,16 +1,107 @@
-# React + Vite
+# ApexGear
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ApexGear is a React-based e-commerce application for browsing and managing technology products such as laptops, phones, gaming devices, audio equipment, and accessories.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### Customer
+- Browse products
+- Search products
+- Filter products by category
+- View product details
+- Check product prices and stock
 
-## React Compiler
+### Admin
+- View inventory statistics
+- Manage products
+- Add products
+- Edit products
+- Delete products
+- Monitor stock availability
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
 
-## Expanding the ESLint configuration
+- React
+- JavaScript
+- React Router
+- CSS
+- JSON Server
+- Vite
+- Vitest
+- React Testing Library
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Getting Started
+
+### Install dependencies
+
+```bash
+npm install
+
+Start the API
+npm run server
+Start the application
+npm run dev
+
+The application runs at:
+
+http://localhost:5173
+
+
+Testing
+
+Run the tests with:
+
+npm test
+
+Or run them once:
+
+npm test -- --run
+
+
+Project Structure
+src/
+├── components/
+├── context/
+├── hooks/
+├── pages/
+├── services/
+├── styles/
+└── tests/
+
+
+Team
+Member	Main Contribution
+Alex Sigei	Project architecture, admin dashboard, UI styling and integration
+Peter Mulwa	Admin product CRUD
+Caleb Blessings	Product catalogue, search, filtering and product details
+
+
+API
+
+ApexGear uses JSON Server as a local REST API.
+
+Product data is stored in:
+
+db.json
+
+Main API operations include:
+
+GET    /products
+GET    /products/:id
+POST   /products
+PATCH  /products/:id
+DELETE /products/:id
+Project Goals
+
+ApexGear demonstrates the use of React to build a component-based e-commerce application with:
+
+Reusable components
+Client-side routing
+Context-based state management
+Custom hooks
+REST API integration
+CRUD operations
+Automated testing
+License
+
+This project was developed as part of a group academic project.
