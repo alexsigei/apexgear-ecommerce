@@ -25,7 +25,7 @@ describe("productService", () => {
     return getProducts().then((data) => {
       expect(data).toEqual(products);
       expect(fetch).toHaveBeenCalledWith(
-        "http://localhost:3001/products"
+        "https://apexgear-api-aihc.onrender.com/products"
       );
     });
   });
@@ -44,7 +44,7 @@ describe("productService", () => {
     return getProduct("1").then((data) => {
       expect(data).toEqual(product);
       expect(fetch).toHaveBeenCalledWith(
-        "http://localhost:3001/products/1"
+        "https://apexgear-api-aihc.onrender.com/products/1"
       );
     });
   });
@@ -69,7 +69,7 @@ describe("productService", () => {
       expect(data).toEqual(createdProduct);
 
       expect(fetch).toHaveBeenCalledWith(
-        "http://localhost:3001/products",
+        "https://apexgear-api-aihc.onrender.com/products",
         expect.objectContaining({
           method: "POST"
         })
@@ -93,7 +93,7 @@ describe("productService", () => {
       expect(data).toEqual(updatedProduct);
 
       expect(fetch).toHaveBeenCalledWith(
-        "http://localhost:3001/products/1",
+        "https://apexgear-api-aihc.onrender.com/products/1",
         expect.objectContaining({
           method: "PATCH"
         })
@@ -111,7 +111,7 @@ describe("productService", () => {
       expect(data).toBe(true);
 
       expect(fetch).toHaveBeenCalledWith(
-        "http://localhost:3001/products/1",
+        "https://apexgear-api-aihc.onrender.com/products/1",
         expect.objectContaining({
           method: "DELETE"
         })
