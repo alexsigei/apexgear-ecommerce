@@ -1,18 +1,13 @@
-import { useState } from "react";
-
-function SearchBar({ onSearch }) {
-  const [search, setSearch] = useState("");
-
+function SearchBar({ search, onSearch }) {
   function handleChange(event) {
-    const value = event.target.value;
-
-    setSearch(value);
-    onSearch(value);
+    onSearch(event.target.value);
   }
 
   return (
     <div>
-      <label htmlFor="search">Search products</label>
+      <label htmlFor="search">
+        Search products:
+      </label>
 
       <input
         id="search"

@@ -1,26 +1,15 @@
 import { useState } from "react";
-import useProductContext from "../hooks/useProductContext";
+
 import ProductList from "../components/ProductList";
 import SearchBar from "../components/SearchBar";
 import CategoryFilter from "../components/CategoryFilter";
+import useProductContext from "../hooks/useProductContext";
 
 function Shop() {
-  const {
-    products,
-    loading,
-    error,
-  } = useProductContext();
+  const { products, loading, error } = useProductContext();
 
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
-
-  if (loading) {
-    return <p>Loading products...</p>;
-  }
-
-  if (error) {
-    return <p>Unable to load products: {error}</p>;
-  }
 
   const filteredProducts = products.filter((product) => {
     const matchesSearch = product.name
@@ -34,6 +23,14 @@ function Shop() {
     return matchesSearch && matchesCategory;
   });
 
+  if (loading) {
+    return <p>Loading products...</p>;
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
+
   return (
     <main>
       <h1>Shop ApexGear</h1>
@@ -42,12 +39,19 @@ function Shop() {
         {filteredProducts.length} products available
       </p>
 
-      <SearchBar onSearch={setSearch} />
+      <SearchBar
+        search={search}
+        onSearch={setSearch}
+      />
 
       <CategoryFilter
-        category={category}
-        onCategoryChange={setCategory}
-      />
+  categories={[
+    ...new Set(
+      products.map((product) => product.category)
+    ),
+  ]}
+  onCategoryChange={setCategory}
+/>
 
       <ProductList products={filteredProducts} />
     </main>
