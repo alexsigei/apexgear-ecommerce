@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
+import useProductContext from "../hooks/useProductContext";
+import ProductList from "../components/ProductList";
 
 function Home() {
+  const { products, loading } = useProductContext();
+
+  const featuredProducts = products.slice(0, 3);
+
   return (
     <main>
       <section className="hero">
@@ -22,6 +28,20 @@ function Home() {
             Shop Now
           </Link>
         </div>
+      </section>
+
+      <section>
+        <h2>Featured Products</h2>
+
+        {loading ? (
+          <p>Loading featured products...</p>
+        ) : (
+          <ProductList products={featuredProducts} />
+        )}
+
+        <Link to="/shop">
+          View All Products
+        </Link>
       </section>
     </main>
   );
