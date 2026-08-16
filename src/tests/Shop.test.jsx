@@ -1,4 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
+import "@testing-library/jest-dom";
 import Shop from "../pages/Shop";
 
 vi.mock("../hooks/useProductContext", () => ({
@@ -36,7 +38,11 @@ vi.mock("../hooks/useProductContext", () => ({
 
 describe("Shop", () => {
   test("displays products", () => {
-    render(<Shop />);
+    render(
+  <MemoryRouter>
+    <Shop />
+  </MemoryRouter>
+);
 
     expect(screen.getByText("MacBook Air M3")).toBeInTheDocument();
     expect(screen.getByText("iPhone 15")).toBeInTheDocument();
@@ -44,7 +50,11 @@ describe("Shop", () => {
   });
 
   test("filters products when searching", () => {
-    render(<Shop />);
+    render(
+  <MemoryRouter>
+    <Shop />
+  </MemoryRouter>
+);
 
     const searchInput = screen.getByPlaceholderText(
       "Search products..."
@@ -60,7 +70,11 @@ describe("Shop", () => {
   });
 
   test("filters products by category", () => {
-    render(<Shop />);
+    render(
+  <MemoryRouter>
+    <Shop />
+  </MemoryRouter>
+);
 
     const categorySelect = screen.getByLabelText(
       "Filter by category"
