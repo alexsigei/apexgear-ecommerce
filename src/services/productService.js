@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3001/products";
+const API_URL = "https://apexgear-api-aihc.onrender.com/products";
 
 function handleResponse(response) {
   if (!response.ok) {
