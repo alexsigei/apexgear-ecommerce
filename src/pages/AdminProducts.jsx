@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "../styles/admin-products.css";
 
 function AdminProducts() {
+  // products current list of producst from context
   const {
     products,
     removeProduct,
@@ -12,6 +13,10 @@ function AdminProducts() {
   } = useContext(ProductContext);
 
   const navigate = useNavigate();
+  console.log(products)
+  
+
+  //temp message for loading
 
   if (loading) {
     return (
@@ -23,7 +28,9 @@ function AdminProducts() {
     );
   }
 
+  // display erroe retuned by context
   if (error) {
+    console.log(error)
     return (
       <main className="admin-products-page">
         <div className="admin-products-state admin-products-error">
@@ -33,7 +40,9 @@ function AdminProducts() {
     );
   }
 
+  
   const handleDelete = async (id) => {
+
     const confirmed = window.confirm(
       "Are you sure you want to delete this product?"
     );
@@ -81,7 +90,7 @@ function AdminProducts() {
       </section>
 
 
-      {/* SUMMARY */}
+      {/* SUMMARY products lenght = products stored in ProductContext*/}
 
       <section className="admin-products-summary">
 
@@ -144,11 +153,18 @@ function AdminProducts() {
 
 
             <tbody>
+              {/*loop products */}
+              
 
               {products.map((product) => {
+                console.log(product)
 
                 const stock = Number(product.stock);
                 const price = Number(product.price);
+
+                console.log(stock ,price)
+
+                
 
                 return (
                   <tr key={product.id}>
@@ -240,6 +256,7 @@ function AdminProducts() {
                     <td>
 
                       <div className="product-actions">
+                        { /* edit product*/}
 
                         <button
                           type="button"
@@ -252,6 +269,8 @@ function AdminProducts() {
                         >
                           Edit
                         </button>
+
+                        {/* delete product*/}
 
                         <button
                           type="button"

@@ -5,12 +5,15 @@ import "../styles/product-form.css";
 
 function AddProduct() {
   const navigate = useNavigate();
+  
 
   const {
     addProduct,
     loading,
     error,
   } = useProductContext();
+
+  console.log(addProduct)
 
   const [formData, setFormData] = useState({
     name: "",
@@ -20,6 +23,8 @@ function AddProduct() {
     image: "",
     description: "",
   });
+
+  console.log(formData)
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,7 +38,10 @@ function AddProduct() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+//send formdata to ProductContext
     const resp = await addProduct(formData);
+
+    console.log(resp)
 
     if (resp) {
       navigate("/admin/products");
