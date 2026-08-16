@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import useProductContext from "../hooks/useProductContext";
+import ProductList from "../components/ProductList";
 import "../styles/home.css";
 
 const categories = [
@@ -26,6 +27,8 @@ function Home() {
   const { products, loading, error } = useProductContext();
 
   const [activeCategory, setActiveCategory] = useState(0);
+
+  const featuredProducts = products.slice(0, 3);
 
   function moveCategory(direction) {
     setActiveCategory((current) => {
@@ -53,17 +56,10 @@ function Home() {
     return difference;
   }
 
-  const featuredProducts = products.slice(0, 3);
-
   return (
     <div className="home-page">
-
-      {/* HERO + FEATURED PRODUCTS */}
-
       <section className="home-hero">
-
         <div className="hero-copy">
-
           <p className="hero-label">
             APEXGEAR · MODERN TECHNOLOGY
           </p>
@@ -85,22 +81,16 @@ function Home() {
             Explore our products
             <span>→</span>
           </Link>
-
         </div>
-
-
-        {/* HERO PRODUCTS */}
 
         {!loading && !error && featuredProducts.length > 0 && (
           <div className="hero-products">
-
             {featuredProducts.map((product, index) => (
               <Link
                 key={product.id}
                 to={`/shop/${product.id}`}
                 className={`hero-product hero-product-${index}`}
               >
-
                 <div className="hero-product-image">
                   <img
                     src={product.image}
@@ -109,54 +99,30 @@ function Home() {
                 </div>
 
                 <div className="hero-product-info">
+                  <p>{product.category}</p>
 
-                  <p>
-                    {product.category}
-                  </p>
-
-                  <h3>
-                    {product.name}
-                  </h3>
+                  <h3>{product.name}</h3>
 
                   <span>
                     KSh{" "}
-                    {Number(product.price).toLocaleString(
-                      "en-KE"
-                    )}
+                    {Number(product.price).toLocaleString("en-KE")}
                   </span>
-
                 </div>
-
               </Link>
             ))}
-
           </div>
         )}
 
-
-        {/* CATEGORY WHEEL */}
-
         <div className="hero-categories">
-
           <div className="category-heading">
+            <p>EXPLORE</p>
 
-            <p>
-              EXPLORE
-            </p>
-
-            <h2>
-              Find your gear.
-            </h2>
-
+            <h2>Find your gear.</h2>
           </div>
 
-
           <div className="category-wheel">
-
             {categories.map((category, index) => {
-
-              const position =
-                getRelativePosition(index);
+              const position = getRelativePosition(index);
 
               return (
                 <button
@@ -169,19 +135,14 @@ function Home() {
                     moveCategory(position > 0 ? 1 : -1);
                   }}
                 >
-
                   <span className="category-index">
                     0{index + 1}
                   </span>
 
                   <div>
-                    <h3>
-                      {category.name}
-                    </h3>
+                    <h3>{category.name}</h3>
 
-                    <p>
-                      {category.description}
-                    </p>
+                    <p>{category.description}</p>
                   </div>
 
                   {position === 0 && (
@@ -189,16 +150,12 @@ function Home() {
                       →
                     </span>
                   )}
-
                 </button>
               );
             })}
-
           </div>
 
-
           <div className="category-controls">
-
             <button
               type="button"
               onClick={() => moveCategory(-1)}
@@ -220,28 +177,18 @@ function Home() {
             >
               →
             </button>
-
           </div>
-
         </div>
-
       </section>
 
-
-      {/* PRODUCT COLLECTION */}
-
       <section className="featured-section">
-
         <div className="section-heading">
-
           <div>
             <p className="section-label">
               THE COLLECTION
             </p>
 
-            <h2>
-              Worth a closer look.
-            </h2>
+            <h2>Worth a closer look.</h2>
           </div>
 
           <Link
@@ -250,9 +197,7 @@ function Home() {
           >
             View all products →
           </Link>
-
         </div>
-
 
         {loading && (
           <div className="product-message">
@@ -260,15 +205,16 @@ function Home() {
           </div>
         )}
 
-
         {error && !loading && (
           <div className="product-message">
             Unable to load products.
           </div>
         )}
 
+        {!loading && !error && (
+          <ProductList products={featuredProducts} />
+        )}
       </section>
-
     </div>
   );
 }
